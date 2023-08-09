@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('current_version', 20);
+            $table->string('title', );
+            $table->integer('current_version');
             $table->tinyInteger('status')->default(1)->comment('1= active | 0= inactive');
             $table->timestamps();
         });

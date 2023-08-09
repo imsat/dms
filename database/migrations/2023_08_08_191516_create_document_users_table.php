@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('document_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('document_id')->nullable()->constrained('documents')->nullOnDelete();
-            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->string('last_viewed_version');
+            $table->foreignId('document_id')->index()->nullable()->constrained('documents')->nullOnDelete();
+            $table->foreignId('user_id')->index()->nullable()->constrained('users')->nullOnDelete();
+            $table->integer('last_viewed_version');
+            $table->integer('diff_id_version')->nullable();
             $table->timestamps();
         });
     }

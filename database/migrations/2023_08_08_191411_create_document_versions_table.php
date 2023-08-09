@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('document_versions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('document_id')->nullable()->constrained('documents')->nullOnDelete();
-            $table->string('version');
-            $table->string('body_content');
-            $table->string('tags_content');
+            $table->foreignId('document_id')->index()->nullable()->constrained('documents')->nullOnDelete();
+            $table->integer('version');
+            $table->longText('body_content');
+            $table->longText('tags_content');
             $table->timestamps();
         });
     }

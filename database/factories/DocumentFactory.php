@@ -17,7 +17,10 @@ class DocumentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(mt_rand(3, 5)),
+            'current_version' => mt_rand(1, 4),
+            'status' => fake()->randomElement([0,1]),
         ];
     }
 }
+

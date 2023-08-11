@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('document_versions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('document_id')->index()->nullable()->constrained('documents')->nullOnDelete();
-            $table->integer('version');
+            $table->integer('version')->index();
             $table->longText('body_content');
             $table->longText('tags_content');
             $table->timestamps();

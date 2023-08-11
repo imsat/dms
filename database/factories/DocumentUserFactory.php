@@ -17,6 +17,7 @@ class DocumentUserFactory extends Factory
     public function definition(): array
     {
         $documentId = mt_rand(500, 1000);
+//        $documentId = mt_rand(1, 1200);
         return [
             'document_id' => $documentId,
             'user_id' => mt_rand(1, 300),

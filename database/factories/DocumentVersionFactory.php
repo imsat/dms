@@ -17,6 +17,7 @@ class DocumentVersionFactory extends Factory
     public function definition(): array
     {
         $documentId = mt_rand(500, 1000);
+//        $documentId = mt_rand(1, 1200);
         $sentence = fake()->sentence(mt_rand(5, 7));
         $bodyContent = [];
         $bodyContent['introduction'] = '<ul><li>' . $sentence . '\t<ul><li>';

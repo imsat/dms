@@ -17,11 +17,21 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(300)->create();
-//        $maxVersion = 4;
+//        $maxVersion = 2;
 //        for ($version = 1; $version <= $maxVersion; $version++) {
-//            Document::factory(300)->create([
+//            Document::factory(250)->create([
 //                'current_version' => $version
-//            ]);
+//            ])->each(function ($document) use ($version) {
+//                DocumentVersion::factory(5)->create([
+//                    'document_id' => $document->id,
+//                    'version' => $version
+//                ])->each(function ($docVersion) use ($version, $document) {
+//                    DocumentUser::factory(4)->create([
+//                        'document_id' => $document->id,
+//                        'last_viewed_version' => $version,
+//                    ]);
+//                });
+//            });
 //        }
         Document::factory(1200)->create();
         DocumentVersion::factory(2500)->create();

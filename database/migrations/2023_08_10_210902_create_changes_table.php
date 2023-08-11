@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('document_id')->index()->nullable()->constrained('documents')->nullOnDelete();
             $table->foreignId('user_id')->index()->nullable()->constrained('users')->nullOnDelete();
-            $table->integer('version');
-            $table->integer('last_viewed_version');
-            $table->tinyInteger('status')->nullable()->comment('0= deleted, 1= added | 3= modified');
+            $table->integer('new_version');
+            $table->integer('old_version');
             $table->timestamps();
         });
     }

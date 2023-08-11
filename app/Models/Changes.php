@@ -12,8 +12,7 @@ class Changes extends Model
     protected $fillable = [
         'document_id',
         'user_id',
-        'version',
-        'last_viewed_version',
-        'status',
+        'new_version',
+        'old_version',
     ];
 }

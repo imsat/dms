@@ -14,4 +14,14 @@ class Document extends Model
         'current_version',
         'status',
     ];
+
+    public function documentVersion()
+    {
+        return $this->hasMany(DocumentVersion::class)->where('version', '=', $this->current_version);
+    }
+
+    public function documentVersions()
+    {
+        return $this->hasMany(DocumentVersion::class);
+    }
 }

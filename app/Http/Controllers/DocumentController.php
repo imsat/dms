@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
 {
@@ -12,7 +14,38 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+//        $documents = DB::table('documents')
+//            ->rightJoin('document_versions', function (JoinClause $join) {
+//                $join->on('documents.id', '=', 'document_versions.document_id')
+//                    ->whereColumn('documents.current_version', '=', 'document_versions.version');
+//            })
+//            ->select('documents.id', 'documents.title', 'documents.current_version', 'documents.status', 'document_versions.body_content', 'document_versions.tags_content')
+//            ->paginate(10);
+//        dd(auth()->id());
+
+        $documents = DB::table('documents')
+            ->join('document_versions', function (JoinClause $join) {
+                $join->on('documents.id', '=', 'document_versions.document_id')
+                    ->whereColumn('documents.current_version', '=', 'document_versions.version');
+            })
+//            ->leftJoin('changes', function (JoinClause $join) {
+//                $join->on(auth()->id(), '=', 'changes.user_id')
+//                    ->whereColumn('document_users.user_id', '=', 'changes.user_id')
+//                    ->whereColumn('document_users.last_viewed_version', '=', 'changes.new_version')
+//                    ->whereColumn('documents.current_version', '=', 'changes.old_version');
+//            })
+            ->leftJoin('changes', function (JoinClause $join) {
+                $join->on('documents.id', '=', 'changes.document_id')
+//                    ->whereColumn('document_users.user_id', '=', 'changes.user_id');
+                ->whereColumn('documents.current_version', '=', 'changes.old_version');
+//                ->whereColumn('documents.current_version', '=', 'changes.old_version' );
+            })
+            ->select('documents.id', 'documents.title', 'current_version', 'documents.status as document_status', 'changes.user_id as change_user_id')
+            ->paginate();
+
+//        dd($documents);
+
+        return view('document.index', compact('documents'));
     }
 
     /**
@@ -34,9 +67,15 @@ class DocumentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Document $document)
+    public function show($document)
     {
-        //
+        $document = DB::table('documents')
+            ->rightJoin('document_versions', function (JoinClause $join) {
+                $join->on('documents.id', '=', 'document_versions.document_id')
+                    ->whereColumn('documents.current_version', '=', 'document_versions.version');
+            })
+            ->select('documents.id', 'documents.title', 'documents.current_version', 'documents.status', 'document_versions.body_content', 'document_versions.tags_content')
+            ->find($document);
     }
 
     /**
